@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mindful Breathing App</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to top right, #a0d2eb, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      font-size: 2rem;
+      color: #333;
+    }
+
+    #circle {
+      width: 150px;
+      height: 150px;
+      background-color: rgba(0, 123, 255, 0.2);
+      border: 3px solid #007bff;
+      border-radius: 50%;
+      transition: transform 4s ease-in-out;
+      transform: scale(1);
+    }
+
+    #text {
+      margin-top: 30px;
+      font-size: 1.5rem;
+      color: #444;
+      transition: all 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mindful Breathing</h1>
+  <div id="circle"></div>
+  <div id="text">Breathe In</div>
+
+  <script>
+    const circle = document.getElementById('circle');
+    const text = document.getElementById('text');
+
+    const cycle = [
+      {
+        action: "Breathe In",
+        duration: 4000,
+        scale: 1.5,
+        transition: "transform 4s ease-in-out"
+      },
+      {
+        action: "Hold",
+        duration: 2000,
+        scale: 1.5,
+        transition: "transform 0s"
+      },
+      {
+        action: "Breathe Out",
+        duration: 4000,
+        scale: 1,
+        transition: "transform 4s ease-in-out"
+      }
+    ];
+
+    let index = 0;
+
+    function nextPhase() {
+      const phase = cycle[index];
+      text.textContent = phase.action;
+      circle.style.transition = phase.transition;
+      circle.style.transform = `scale(${phase.scale})`;
+
+      setTimeout(() => {
+        index = (index + 1) % cycle.length;
+        nextPhase();
+      }, phase.duration);
+    }
+
+    nextPhase();
+  </script>
+</body>
+</html>
